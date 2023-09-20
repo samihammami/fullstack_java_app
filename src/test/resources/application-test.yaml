@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    password: 123
+    username: admin
+    url: jdbc:h2:mem://
+    driver-class-name: org.h2.Driver
+  flyway:
+    enabled: false

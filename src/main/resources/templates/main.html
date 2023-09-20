@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Splitter</title>
+    <link rel="stylesheet" href="../static/main.css" th:href="@{/main.css}">
+</head>
+<body>
+<div class="anmeldeAnzeige">
+    <img th:src="${ProfilePic}" src="bieb.png" width="100" heigth="100" class="round">
+    <p th:text="'Angemeldet als '+${loginName}" class="inline">Angemeldet als Plopfus</p>
+</div>
+<div class="headline">
+    <div>
+        <h1 class="header">Splitter</h1>
+    </div>
+    <div class="neueGruppe">
+        <form method="post" th:action="@{/}">
+            <input class="textfeld" type="text" maxlength="50" required placeholder="Gruppenname" name="name">
+            <button class="bigButton" type="submit">Gruppe erstellen</button>
+        </form>
+    </div>
+</div>
+<div class="gruppenUebersicht">
+    <p class ="title">Offene Gruppen</p>
+    <div class="gruppe" th:each="liste : ${GruppenOF}">
+        <p class ="title2" th:text="${liste.getGruppenName()}">Die Rasselbande</p>
+        <div class="mitglieder">
+            <span th:each="namen : ${liste.getName()}" th:text="${namen}"></span>
+        </div>
+        <form method="get" th:action="@{/details}">
+            <input type="hidden" th:value="${liste.getId()}" name="id">
+            <button class="standardButton">Details</button>
+        </form>
+    </div>
+</div>
+<div class="gruppenUebersicht">
+    <p class ="title">Geschlossene Gruppen</p>
+    <div class="gruppe" th:each="liste : ${GruppenGE}">
+        <p class ="title2" th:text="${liste.getGruppenName()}">Die Rasselbande</p>
+        <div class="mitglieder">
+            <span th:each="namen : ${liste.getName()}" th:text="${namen}"></span>
+        </div>
+        <form method="get" th:action="@{/details}">
+            <input type="hidden" th:value="${liste.getId()}" name="id">
+            <button class="standardButton">Details</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

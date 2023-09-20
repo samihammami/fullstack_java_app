@@ -1,0 +1,2 @@
+insert into transaktion_entity(transaktionen_id, sender, empfaenger, betrag, grund) values (0, 'Bob', 'Hans', 20.0, 'ja')
+insert into transaktion_entity(transaktionen_id, sender, empfaenger, betrag, grund) values (0, 'Bob', 'Hans', 10.0, 'ja')

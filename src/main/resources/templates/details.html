@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Details</title>
+    <link rel="stylesheet" href="../static/main.css" th:href="@{/main.css}">
+</head>
+<body>
+<form method="get" th:action="@{/}">
+    <button type="submit" class="add standardButton">Zurück</button>
+</form>
+<form method="post" th:action="@{/details/schliessen}">
+    <input type="hidden" th:value="${aktuelleID}" name="id">
+    <button type="submit" class="add standardButton">Gruppe schließen</button>
+</form>
+<div class="headline">
+    <div>
+        <h1 th:text="${aktuelleGruppe.getGruppenName()}" class="header">Gruppenname</h1>
+    </div>
+    <div class="neueGruppe">
+        <form method="post" th:action="@{/details/hinzufuegen}">
+            <input type="hidden" th:value="${aktuelleID}" name="id">
+            <input required type="text" placeholder="Mitgliedname" name="name" class="textfeld">
+            <button class="add bigButton" type="submit">Mitglied hinzufügen</button>
+        </form>
+    </div>
+</div>
+<div class="">
+    <h1 class="title">Mitglieder</h1>
+    <div>
+        <div th:each="namen : ${Mitglieder}" class="mitglied inline">
+            <span th:text="${namen.getPersonName()}">Fuellermitglied</span>
+        </div>
+    </div>
+</div>
+<h1 class="title">Finanzen</h1>
+<div class="finanzsicht">
+    <div class="inline finanzsegment ">
+        <h1 class="title3">Aktivitäten</h1>
+        <table class="tabelle">
+            <thread>
+                <tr>
+                    <th class="tabellenEintrag">Name</th>
+                    <th class="tabellenEintrag">Betrag</th>
+                    <th class="tabellenEintrag">Nutzen</th>
+                    <th class="tabellenEintrag">Teilnehmer</th>
+                </tr>
+            </thread>
+            <tbody >
+            <tr th:each = "transaktionen: ${Transaktionen}">
+                <td class="tabellenEintrag" th:text="${transaktionen.sender().getPersonName()}">Herbert</td>
+                <td class="tabellenEintrag" th:text="${transaktionen.geld()}">20</td>
+                <td class="tabellenEintrag" th:text="${transaktionen.grund()}">Ticket für Comeback</td>
+                <td class="tabellenEintrag" th:text="${transaktionen.alleEmpfaenger()}">Herbert, Wolfgang</td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="tabelle">
+            <thread>
+                <tr>
+                    <th class="tabellenEintrag">Name</th>
+                    <th class="tabellenEintrag">Betrag</th>
+                    <th class="tabellenEintrag">Nutzen</th>
+                    <th class="tabellenEintrag">Teilnehmer</th>
+                </tr>
+            </thread>
+            <tbody >
+            <tr th:each = "transaktionenB: ${TransaktionenB}">
+                <td class="tabellenEintrag" th:text="${transaktionenB.sender().getPersonName()}">Herbert</td>
+                <td class="tabellenEintrag" th:text="${transaktionenB.geld()}">20</td>
+                <td class="tabellenEintrag" th:text="${transaktionenB.grund()}">Ticket für Comeback</td>
+                <td class="tabellenEintrag" th:text="${transaktionenB.alleEmpfaenger()}">Herbert, Wolfgang</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="inline finanzsegment ">
+        <p class="title3">Transaktion hinzufügen</p>
+        <form method="post" th:action="@{/details/transaktion}" class="tabelle">
+            <input required type="text" placeholder="Empfaenger" title="Namen bitte im Format: Bob,Hans"name="empfaenger">
+            <input required type="number" step="0.01" placeholder="Geldbetrag" name = "betrag">
+            <input required type="text" placeholder="Nutzen" name = "grund">
+            <input type="hidden" th:value="${aktuelleID}" name="id">
+            <button class="add standardButton" type="submit">Beitrag hinzufügen</button>
+        </form>
+        <p class="title3">Empfänger im Format "Mitglied1,Mitglied2,..." angeben</p>
+    </div>
+    <div class="inline finanzsegment ">
+        <h1 class="title3">Schulden</h1>
+        <table class="tabelle">
+            <thead>
+            <tr>
+                <th class="tabellenEintrag">Schulden</th>
+                <th class="tabellenEintrag">Von</th>
+                <th class="tabellenEintrag">An</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each = "ueberweisungen: ${ueberweisung}">
+                <td th:text="${ueberweisungen.geld()}" class="tabellenEintrag">10</td>
+                <td th:text="${ueberweisungen.sender()}"  class="tabellenEintrag">Wolfgang</td>
+                <td th:text="${ueberweisungen.empfaenger()}"class="tabellenEintrag">Herbert</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
